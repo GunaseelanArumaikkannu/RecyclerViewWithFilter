@@ -15,14 +15,14 @@ import java.util.List;
 
 /**
  * Created by Gunaseelan on 11-12-2015.
- * Simple adapter class, used for show all companies in list
+ * Simple adapter class, used for show all numbers in list
  */
 public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHolder> {
 
-    ArrayList<Number> companies;
+    ArrayList<Number> numbers;
 
     public NumbersAdapter(List<Number> numbers) {
-        this.companies = new ArrayList<>(numbers);
+        this.numbers = new ArrayList<>(numbers);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindData(companies.get(position));
+        holder.bindData(numbers.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return companies.size();
+        return numbers.size();
     }
 
     public void animateTo(List<Number> models) {
@@ -48,8 +48,8 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     }
 
     private void applyAndAnimateRemovals(List<Number> newModels) {
-        for (int i = companies.size() - 1; i >= 0; i--) {
-            final Number model = companies.get(i);
+        for (int i = numbers.size() - 1; i >= 0; i--) {
+            final Number model = numbers.get(i);
             if (!newModels.contains(model)) {
                 removeItem(i);
             }
@@ -59,7 +59,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     private void applyAndAnimateAdditions(List<Number> newModels) {
         for (int i = 0, count = newModels.size(); i < count; i++) {
             final Number model = newModels.get(i);
-            if (!companies.contains(model)) {
+            if (!numbers.contains(model)) {
                 addItem(i, model);
             }
         }
@@ -68,7 +68,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     private void applyAndAnimateMovedItems(List<Number> newModels) {
         for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
             final Number model = newModels.get(toPosition);
-            final int fromPosition = companies.indexOf(model);
+            final int fromPosition = numbers.indexOf(model);
             if (fromPosition >= 0 && fromPosition != toPosition) {
                 moveItem(fromPosition, toPosition);
             }
@@ -76,19 +76,19 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     }
 
     public Number removeItem(int position) {
-        final Number model = companies.remove(position);
+        final Number model = numbers.remove(position);
         notifyItemRemoved(position);
         return model;
     }
 
     public void addItem(int position, Number model) {
-        companies.add(position, model);
+        numbers.add(position, model);
         notifyItemInserted(position);
     }
 
     public void moveItem(int fromPosition, int toPosition) {
-        final Number model = companies.remove(fromPosition);
-        companies.add(toPosition, model);
+        final Number model = numbers.remove(fromPosition);
+        numbers.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
     }
 
